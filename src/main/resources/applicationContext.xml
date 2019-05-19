@@ -27,8 +27,8 @@
 
     <!-- 腾讯云短信接口配置 -->
     <bean id="tencentCloudSmsConfig" class="bean.TencentCloudSmsConfig">
-        <property name="appId" value="1400208452"/>
-        <property name="appKey" value="3a92b4f1393fd8c5c480836ee43d2b64"/>
+        <property name="appId" value=""/>
+        <property name="appKey" value=""/>
         <property name="receiver" value="15944376650"/>
         <property name="templates">
             <map key-type="constant.SmsTypeEnum">
