@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/task
+       http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <context:component-scan base-package="sms"/>
+    <context:component-scan base-package="task"/>
+
+    <!-- 定时任务 -->
+    <task:annotation-driven scheduler="qbScheduler"/>
+    <task:scheduler id="qbScheduler"/>
+
+
+    <!-- 责任链配置 -->
+    <bean id="tencentSmsSender" class="sms.TencenCloudtSmsSender">
+        <property name="nextSmsSender" ref="jiGuangSmsSender"/>
+    </bean>
+    <bean id="jiGuangSmsSender" class="sms.JiGuangSmsSender"/>
+
+
+    <!-- 腾讯云短信接口配置 -->
+    <bean id="tencentCloudSmsConfig" class="bean.TencentCloudSmsConfig">
+        <property name="appId" value="1400208452"/>
+        <property name="appKey" value="3a92b4f1393fd8c5c480836ee43d2b64"/>
+        <property name="receiver" value="15944376650"/>
+        <property name="templates">
+            <map key-type="constant.SmsTypeEnum">
+                <!-- 喝水提醒模板 -->
+                <entry key="DRINK" value="328818,328816,328813,328809,328808,328807,328806"/>
+                <!-- 清晨提醒模板 -->
+                <entry key="MORNING" value="328805"/>
+                <!-- 生日提醒模板 -->
+                <entry key="BIRTHDAY" value="334475"/>
+            </map>
+        </property>
+    </bean>
+
+
+</beans>
