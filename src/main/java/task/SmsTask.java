@@ -27,8 +27,7 @@ public class SmsTask {
      */
     @Scheduled(cron = "0 0 6 * * ?")
     public void morning() {
-//        smsSender.sendSms(SmsTypeEnum.MORNING);
-        System.out.println(new Date() + " " + SmsTypeEnum.MORNING);
+        smsSender.sendSms(SmsTypeEnum.MORNING);
     }
 
     /**
@@ -37,8 +36,7 @@ public class SmsTask {
      */
     @Scheduled(cron = "0 0 9,12,15,18,21 * * ?")
     public void drink() {
-//        smsSender.sendSms(SmsTypeEnum.DRINK);
-        System.out.println(new Date() + " " + SmsTypeEnum.DRINK);
+        smsSender.sendSms(SmsTypeEnum.DRINK);
     }
 
     /**
@@ -52,7 +50,7 @@ public class SmsTask {
      */
     @Scheduled(cron = "0 0 0 6 5 ? 2020")
     public void birthday() {
-//        smsSender.sendSms(SmsTypeEnum.BIRTHDAY);
+        smsSender.sendSms(SmsTypeEnum.BIRTHDAY);
     }
 
     /**
