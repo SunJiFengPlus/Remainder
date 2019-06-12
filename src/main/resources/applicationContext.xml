@@ -14,18 +14,16 @@
     <context:component-scan base-package="task"/>
 
     <!-- 定时任务 -->
-    <task:annotation-driven scheduler="qbScheduler"/>
-    <task:scheduler id="qbScheduler"/>
-
+    <task:annotation-driven/>
 
     <!-- 责任链配置 -->
-    <bean id="tencentSmsSender" class="sms.TencenCloudtSmsSender">
+    <bean id="tencentSmsSender" class="sms.TencentCloudtSmsSender">
         <property name="nextSmsSender" ref="jiGuangSmsSender"/>
     </bean>
     <bean id="jiGuangSmsSender" class="sms.JiGuangSmsSender"/>
 
 
-    <!-- 腾讯云短信接口配置 -->
+    <!-- 腾讯云短信接口配置, 拿走拿走别客气 -->
     <bean id="tencentCloudSmsConfig" class="bean.TencentCloudSmsConfig">
         <property name="appId" value="1400208452"/>
         <property name="appKey" value="3a92b4f1393fd8c5c480836ee43d2b64"/>
@@ -41,6 +39,4 @@
             </map>
         </property>
     </bean>
-
-
 </beans>

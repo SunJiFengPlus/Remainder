@@ -6,7 +6,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import sms.SmsSender;
 
-import java.util.Date;
 
 /**
  * @author 孙继峰
@@ -48,16 +47,24 @@ public class SmsTask {
      * 2023 6 1
      * 2024 5 21
      */
-    @Scheduled(cron = "0 0 0 6 5 ? 2020")
+    @Scheduled(cron = "0 0 0 6 5 ?")
     public void birthday() {
         smsSender.sendSms(SmsTypeEnum.BIRTHDAY);
     }
 
     /**
-     * 希望我能维护到这一天
+     * 希望我能维护到这一天呐
      */
 //    @Scheduled(cron = "")
-    public void weddingDay () {
+    public void weddingDay() {
+
+    }
+
+    /**
+     * 谁还不是个宝宝呢
+     */
+    @Scheduled(cron = "0 0 6 1 6 ?")
+    public void childrensDay() {
 
     }
 }

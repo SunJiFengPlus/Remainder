@@ -4,6 +4,7 @@ import bean.TencentCloudSmsConfig;
 import com.github.qcloudsms.SmsSingleSender;
 import com.github.qcloudsms.SmsSingleSenderResult;
 import constant.SmsTypeEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import util.CollectionUtil;
@@ -13,12 +14,13 @@ import util.CollectionUtil;
  * @date 2019/05/15
  */
 @Component
-public class TencenCloudtSmsSender extends SmsSender {
+@Slf4j
+public class TencentCloudtSmsSender extends SmsSender {
 
     private final TencentCloudSmsConfig config;
 
     @Autowired
-    public TencenCloudtSmsSender(TencentCloudSmsConfig config) {
+    public TencentCloudtSmsSender(TencentCloudSmsConfig config) {
         this.config = config;
     }
 
@@ -49,6 +51,8 @@ public class TencenCloudtSmsSender extends SmsSender {
 
     /**
      * 使用短信模板发送短信
+     * TODO: AOP 日志
+     *
      * @param templateId 从接口提供商获取的短信模板
      * @return 短信发送成功返回 true, 发送失败返回 false
      */
@@ -59,8 +63,9 @@ public class TencenCloudtSmsSender extends SmsSender {
         try {
             result = ssender.sendWithParam(CN, config.getReceiver(),
                     templateId, new String[]{}, null, null, null);
+            log.info("发送至 {}, 发送结果:{}, 原因:{}", config.getReceiver(),
+                    result.result == SUCCESS ? "SUCCESS" : "FAIL", result.errMsg);
         } catch (Exception e) {
-            // TODO: logger
             e.printStackTrace();
         }
         return result.result == SUCCESS;
